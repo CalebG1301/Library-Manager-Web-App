@@ -10,54 +10,62 @@ A responsive Library Manager built with HTML, CSS, and JavaScript.
 
 **Try it here:**
 
-https://calebg1301.github.io/Library-Manager-Web-App/
+🔗 https://calebg1301.github.io/Library-Manager-Web-App/
 
 ---
 
 ## ✨ Features
 
-- 📚 Add books
-- ✏️ Edit books
-- 🗑 Delete books
+- 📚 Add new books
+- ✏️ Edit existing books
+- 🗑️ Delete books
 - 🔄 Check Out / Return books
-- 🔍 Live search
-- 📂 Filter books
-- ↕ Sort books
+- 🔍 Live search by title, author, or category
+- 📂 Filter books by availability
+- ↕️ Sort books by title, author, category, or year
 - 🌙 Dark / Light mode
-- 💾 Local Storage
-- 📱 Responsive design
+- 💾 Data saved using Local Storage
+- 📱 Responsive design for desktop and mobile
 
 ---
 
-## 🛠 Technologies
+## 🛠️ Technologies Used
 
-- HTML5
-- CSS3
-- JavaScript (ES6)
-- Local Storage API
-- GitHub Pages
-
----
-
-## Screenshots
-
-(Add screenshots here later.)
+- 🌐 HTML5
+- 🎨 CSS3
+- ⚡ JavaScript (ES6)
+- 💾 Local Storage API
+- 🚀 GitHub Pages
 
 ---
 
-## Future Improvements
+## 📁 Project Structure
 
-- User authentication
-- MySQL database
-- Spring Boot backend
-- REST API
-- Book cover images
-- Multiple user accounts
+```text
+Library-Manager-Web-App
+│
+├── index.html
+├── style.css
+├── script.js
+├── LibraryManagerDemo.gif
+└── README.md
+```
 
 ---
 
-## Author
+## 🚀 Future Improvements
+
+- 🔐 User authentication
+- 🗄️ MySQL database integration
+- ☕ Java Spring Boot backend
+- 🌐 REST API
+- 🖼️ Book cover image uploads
+- 👥 Multiple user accounts
+
+---
+
+## 👨‍💻 Author
 
 **Caleb Gandee**
 
-Application Developer
+Aspiring Application Developer passionate about building responsive web applications, Java software, and database-driven solutions.
