@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="A responsive library management application built with HTML, CSS, and JavaScript."
+    >
+
+    <title>Library Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div>
+                <p class="eyebrow">Personal Library Dashboard</p>
+                <h1>Library Manager</h1>
+                <p class="header-description">
+                    Organize, search, and manage your book collection.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="theme-toggle"
+                class="theme-toggle"
+                aria-label="Switch to dark mode"
+            >
+                <span id="theme-icon">🌙</span>
+                <span id="theme-text">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <section
+            class="statistics-grid"
+            aria-label="Library statistics"
+        >
+            <article class="stat-card">
+                <div class="stat-icon">📚</div>
+
+                <div>
+                    <p class="stat-label">Total Books</p>
+                    <p id="total-books" class="stat-value">0</p>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon">✅</div>
+
+                <div>
+                    <p class="stat-label">Available</p>
+                    <p id="available-books" class="stat-value">0</p>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon">📖</div>
+
+                <div>
+                    <p class="stat-label">Checked Out</p>
+                    <p id="checked-out-books" class="stat-value">0</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="dashboard-grid">
+            <aside class="panel add-book-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="section-label">New Entry</p>
+                        <h2>Add a Book</h2>
+                    </div>
+                </div>
+
+                <form id="book-form">
+                    <div class="form-group">
+                        <label for="title">Book Title</label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="Enter book title"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">Author</label>
+
+                        <input
+                            type="text"
+                            id="author"
+                            placeholder="Enter author name"
+                            maxlength="80"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+
+                        <input
+                            type="text"
+                            id="category"
+                            placeholder="Enter category"
+                            maxlength="50"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year">Publication Year</label>
+
+                        <input
+                            type="number"
+                            id="year"
+                            placeholder="Enter year"
+                            min="1000"
+                            max="2100"
+                            required
+                        >
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Add Book
+                    </button>
+                </form>
+            </aside>
+
+            <section class="panel collection-panel">
+                <div class="collection-header">
+                    <div>
+                        <p class="section-label">Your Collection</p>
+                        <h2>Book Collection</h2>
+                    </div>
+
+                    <div class="search-container">
+                        <label class="sr-only" for="search">
+                            Search books
+                        </label>
+
+                        <input
+                            type="search"
+                            id="search"
+                            placeholder="Search title, author, or category"
+                        >
+                    </div>
+                </div>
+
+                <div class="collection-controls">
+                    <div
+                        class="filter-buttons"
+                        aria-label="Filter books"
+                    >
+                        <button
+                            type="button"
+                            class="filter-button active"
+                            data-filter="all"
+                        >
+                            All
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-button"
+                            data-filter="available"
+                        >
+                            Available
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-button"
+                            data-filter="checked-out"
+                        >
+                            Checked Out
+                        </button>
+                    </div>
+
+                    <div class="sort-container">
+                        <label for="sort-books">Sort by</label>
+
+                        <select id="sort-books">
+                            <option value="newest">Newest Added</option>
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                            <option value="category">Category</option>
+                            <option value="year-newest">
+                                Year: Newest
+                            </option>
+                            <option value="year-oldest">
+                                Year: Oldest
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div
+                    id="book-list"
+                    class="book-list"
+                    aria-live="polite"
+                ></div>
+
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon">📚</div>
+                    <h3>Your library is empty</h3>
+                    <p>Add your first book using the form.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <div
+        id="notification"
+        class="notification"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <div
+        id="edit-modal"
+        class="modal hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="edit-modal-title"
+    >
+        <div class="modal-backdrop" data-close-modal></div>
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <p class="section-label">Update Entry</p>
+                    <h2 id="edit-modal-title">Edit Book</h2>
+                </div>
+
+                <button
+                    type="button"
+                    id="close-modal"
+                    class="icon-button"
+                    aria-label="Close edit form"
+                >
+                    ×
+                </button>
+            </div>
+
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+
+                <div class="form-group">
+                    <label for="edit-title">Book Title</label>
+
+                    <input
+                        type="text"
+                        id="edit-title"
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-author">Author</label>
+
+                    <input
+                        type="text"
+                        id="edit-author"
+                        maxlength="80"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-category">Category</label>
+
+                    <input
+                        type="text"
+                        id="edit-category"
+                        maxlength="50"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-year">
+                        Publication Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="edit-year"
+                        min="1000"
+                        max="2100"
+                        required
+                    >
+                </div>
+
+                <div class="modal-actions">
+                    <button
+                        type="button"
+                        id="cancel-edit"
+                        class="secondary-button"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
